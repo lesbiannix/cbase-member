@@ -14,7 +14,7 @@
     # Audio: PulseAudio/PipeWire and user groups
     sound.enable = true;
     hardware.pulseaudio.enable = true;
-    users.users.${config.users.users.root.name}.extraGroups = [ "audio" "video" "plugdev" ];
+    # Please add your user to the audio, video, and plugdev groups in your own config if needed.
 
     # Firefox with c-base homepage (user can override)
     programs.firefox.enable = true;
