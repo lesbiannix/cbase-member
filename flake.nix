@@ -1,0 +1,24 @@
+{
+  description = "NixOS module for c-base members";
+
+  inputs = {
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.05";
+    flake-utils.url = "github:numtide/flake-utils";
+  };
+
+  outputs = { self, nixpkgs, flake-utils, ... }:
+    flake-utils.lib.eachDefaultSystem (system:
+      let
+        pkgs = import nixpkgs { inherit system; };
+      in {
+        packages.default = pkgs.callPackage ./modules/cbase-member.nix { };
+        checks = {
+          formatting = pkgs.runCommand "check-formatting" { } ''
+            ${pkgs.nixpkgs-fmt}/bin/nixpkgs-fmt --check ${self}/modules/cbase-member.nix
+          '';
+        };
+      }
+    ) // {
+      nixosModules.default = import ./modules/cbase-member.nix;
+    };
+}
