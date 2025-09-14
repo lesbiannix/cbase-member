@@ -11,7 +11,6 @@
       let
         pkgs = import nixpkgs { inherit system; };
       in {
-        packages.default = pkgs.callPackage ./modules/cbase-member.nix { };
         checks = {
           formatting = pkgs.runCommand "check-formatting" { } ''
             ${pkgs.nixpkgs-fmt}/bin/nixpkgs-fmt --check ${self}/modules/cbase-member.nix
