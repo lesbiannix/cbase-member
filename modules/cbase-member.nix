@@ -1,8 +1,8 @@
-{ config, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 {
-  options.cbaseMember.enable = pkgs.lib.mkEnableOption "Enable c-base member setup";
+  options.cbaseMember.enable = lib.mkEnableOption "Enable c-base member setup";
 
-  config = pkgs.lib.mkIf config.cbaseMember.enable {
+  config = lib.mkIf config.cbaseMember.enable {
     # WiFi: Add c-base WLAN config (edit SSID and password as needed)
     networking.wireless.enable = true;
     networking.wireless.networks = {
