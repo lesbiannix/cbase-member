@@ -13,7 +13,8 @@
       in {
         checks = {
           formatting = pkgs.runCommand "check-formatting" { } ''
-            ${pkgs.nixpkgs-fmt}/bin/nixpkgs-fmt --check ${self}/modules/cbase-member.nix
+            ${pkgs.nixpkgs-fmt}/bin/nixpkgs-fmt --check ${self}/modules/cbase-member.nix || exit 1
+            touch $out
           '';
         };
       }
