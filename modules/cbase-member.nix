@@ -4,7 +4,7 @@
 
   config = lib.mkIf config.cbaseMember.enable {
     # WiFi: Add c-base WLAN config (edit SSID and password as needed)
-    networking.wireless.enable = true;
+    networking.wireless.enable = lib.mkDefault true;
     networking.wireless.networks = {
       "c-base" = {
         psk = "changeme"; # Replace with real key or use wpa_supplicant for enterprise
