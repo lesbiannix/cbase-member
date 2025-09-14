@@ -32,21 +32,70 @@ This NixOS module provides a convenient, reusable setup for members of c-base. I
 ## Options
 - `cbaseMember.enable` (bool): Enable the c-base member setup (default: false).
 
-### WiFi
-- By default, the module configures WiFi for the `c-base` SSID. You can override or disable this in your own config if needed.
-- **Note:** If you do not want the module to manage WiFi, set `networking.wireless.enable = false;` in your config _after_ importing the module.
+## Examples
 
-### Audio
-- The module enables PulseAudio and adds the user to audio/video/plugdev groups.
+### Minimal Example
+```nix
+{
+  imports = [
+    inputs.cbase-member.nixosModules.default
+  ];
+  cbaseMember.enable = true;
+}
+```
 
-### Firefox
-- Firefox is enabled. You can set a custom homepage or add extensions in your own config.
+### Disabling WiFi Management
+If you want to use your own WiFi config, add this _after_ importing the module:
+```nix
+networking.wireless.enable = false;
+```
 
-### Matrix
-- Installs the Element desktop client for Matrix chat.
+### Customizing Audio
+To use PipeWire instead of PulseAudio:
+```nix
+sound.enable = false;
+hardware.pulseaudio.enable = false;
+services.pipewire = {
+  enable = true;
+  audio.enable = true;
+};
+```
 
-### Utilities
-- Installs `htop`, `neofetch`, and `git`.
+### Customizing Firefox
+Set a custom homepage:
+```nix
+programs.firefox = {
+  enable = true;
+  homepage = "https://wiki.c-base.org";
+};
+```
+
+### Adding More Packages
+Add more system packages alongside the defaults:
+```nix
+environment.systemPackages = with pkgs; [
+  element-desktop
+  htop
+  neofetch
+  git
+  gimp
+  audacity
+];
+```
+
+### Using with Home Manager
+You can use this module with Home Manager by importing it in your system config and using Home Manager as usual. No special steps are needed.
+
+### Disabling Individual Features
+You can override any option after importing the module. For example, to disable Element:
+```nix
+environment.systemPackages = with pkgs; [
+  htop
+  neofetch
+  git
+  # element-desktop is omitted
+];
+```
 
 ## Customization
 You can override any option in your own configuration.nix after importing the module. For example, to skip WiFi setup:
