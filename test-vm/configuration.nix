@@ -1,6 +1,7 @@
 { config, pkgs, ... }:
 {
-  imports = [ ../modules/cbase-member.nix ];
+  # Module is imported via flake.nix, not directly here
+  # imports = [ ../modules/cbase-member.nix ];
   cbaseMember.enable = true;
   # Minimal user for VM
   users.users.test = {

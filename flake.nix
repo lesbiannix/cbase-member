@@ -22,7 +22,7 @@
       nixosModules.default = import ./modules/cbase-member.nix;
       nixosConfigurations.test-vm = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
-        modules = [ ./test-vm/configuration.nix ];
+        modules = [ self.nixosModules.default ./test-vm/configuration.nix ];
       };
     };
 }
