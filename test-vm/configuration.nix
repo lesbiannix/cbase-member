@@ -11,6 +11,11 @@
   };
   # Use a simple bootloader for VM
   boot.loader.grub.device = "/dev/vda";
+  # Minimal root filesystem for test
+  fileSystems."/" = {
+    device = "tmpfs";
+    fsType = "tmpfs";
+  };
   # Networking (no WiFi for VM)
   networking.useDHCP = true;
   networking.wireless.enable = false;
